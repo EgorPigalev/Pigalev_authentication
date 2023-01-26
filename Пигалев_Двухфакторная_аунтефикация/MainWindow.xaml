@@ -5,33 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Пигалев_Двухфакторная_аунтефикация"
         mc:Ignorable="d"
-        Title="Прототип двухфакторной аунтефикации" Height="550" Width="1000">
+        Title="Прототип двухфакторной аунтентификации" Height="550" Width="1000" MinHeight="550" MinWidth="1000">
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="White" CornerRadius="20" Margin="10" Padding="10">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
-                </Border.Effect>
-                <Grid>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Grid.Row="0" FontSize="35" VerticalAlignment="Center">Авторизация</TextBlock>
+        <Grid x:Name="Authorization">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Background="White" CornerRadius="20" Margin="10" Padding="10">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
+                    </Border.Effect>
+                    <Grid>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Grid.Row="0" FontSize="38" VerticalAlignment="Center">Авторизация</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Margin="40">
+                                <GroupBox Header="Введите логин" FontSize="28">
+                                    <TextBox x:Name="tbLogin" MaxLength="50" MinWidth="300"/>
+                                </GroupBox>
+                                <GroupBox Header="Введите пароль" FontSize="28">
+                                    <PasswordBox x:Name="pbPassword" MinWidth="300"/>
+                                </GroupBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2">
+                                <Button x:Name="BtnAutorization" Content="Авторизироваться" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnAutorization_Click"/>
+                                <Button x:Name="BtnGetCode" Visibility="Collapsed" Content="Получить новый код" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnGetCode_Click" Cursor="Hand"/>
+                                <TextBlock x:Name="tbNewCode" Text="Получить новый код можно будет через 60 секунд" FontSize="18" TextWrapping="Wrap" Visibility="Collapsed"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Margin="40">
-                            <GroupBox Header="Введите логин" FontSize="28">
-                                <TextBox x:Name="tboxLogin" MaxLength="50"/>
-                            </GroupBox>
-                            <GroupBox Header="Введите пароль" FontSize="28">
-                                <PasswordBox x:Name="pbPassword"/>
-                            </GroupBox>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2">
-                            <Button x:Name="BtnAutorization" Content="Авторизироваться" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnAuthorizationAndRegistration}"/>
-                            <Button x:Name="BtnGetCode" Content="Получить новый код" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnAuthorizationAndRegistration}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Main" Visibility="Collapsed">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Вы успешно авторизовались" HorizontalAlignment="Center" FontSize="38"/>
+                <Button x:Name="BtnNextAutorization" Content="Перейти на авторизацию" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnNextAutorization_Click" Width="350" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

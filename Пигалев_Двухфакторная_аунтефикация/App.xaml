@@ -12,33 +12,21 @@
         <Style x:Key="BtnStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="Margin" Value="10"/>
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="1, 1" EndPoint="0, 0">
-                            <GradientStop Color="#FF28C1F2" Offset="1"/>
-                            <GradientStop Color="#FF63B1F3" Offset="0.1"/>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background" Value="#FF28C1F2"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Cursor" Value="Hand"/>
             </Style.Setters>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FF28C1F2">
-                    </Setter>
-                </Trigger>
                 <Trigger Property="IsMouseCaptured" Value="True">
                     <Setter Property="Background" Value="#FF60AAED"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="BtnAuthorizationAndRegistration" TargetType="Button" BasedOn="{StaticResource BtnStyle}">
+        <Style x:Key="BtnMain" TargetType="Button" BasedOn="{StaticResource BtnStyle}">
             <Style.Setters>
-                <Setter Property="Width" Value="300"/>
-                <Setter Property="Height" Value="60"/>
-                <Setter Property="FontSize" Value="30"/>
-                <Setter Property="Margin" Value="20"/>
+                <Setter Property="Width" Value="260"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="FontSize" Value="26"/>
             </Style.Setters>
         </Style>
     </Application.Resources>
