@@ -27,7 +27,7 @@
                                 </GroupBox>
                             </StackPanel>
                             <StackPanel Grid.Row="2">
-                                <Button x:Name="BtnAutorization" Content="Авторизироваться" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnAutorization_Click"/>
+                                <Button x:Name="BtnAutorization" Content="Авторизироваться" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnAutorization_Click" Cursor="Hand"/>
                                 <Button x:Name="BtnGetCode" Visibility="Collapsed" Content="Получить новый код" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnGetCode_Click" Cursor="Hand"/>
                                 <TextBlock x:Name="tbNewCode" Text="Получить новый код можно будет через 60 секунд" FontSize="18" TextWrapping="Wrap" Visibility="Collapsed"/>
                             </StackPanel>

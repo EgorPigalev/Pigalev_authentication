@@ -1,0 +1,26 @@
+﻿<Window x:Class="Пигалев_Двухфакторная_аунтефикация.CAPTCHA"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Пигалев_Двухфакторная_аунтефикация"
+        mc:Ignorable="d"
+        Title="Подтверждение действий" Height="450" Width="800" MinHeight="450" MaxHeight="450" MinWidth="800" MaxWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Подтвердите, что вы не робот введя текст с картинки" FontSize="24"/>
+        </StackPanel>
+        <Canvas x:Name="CvField" Width="600" Height="200" Grid.Row="1">
+                
+        </Canvas>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <TextBox x:Name="tbInputField" FontSize="24" Margin="200, 10, 200, 10"/>
+            <Button x:Name="BtnGo" Content="Отправить" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnGo_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

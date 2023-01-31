@@ -91,8 +91,31 @@ namespace Пигалев_Двухфакторная_аунтефикация
             twoAuthentication.ShowDialog();
             if (correct == true) // Если пароль правильный, то выводим форму после авторизации
             {
-                Main.Visibility = Visibility.Visible;
-                Authorization.Visibility = Visibility.Collapsed;
+                correct = false;
+                CAPTCHA captcha = new CAPTCHA();
+                captcha.ShowDialog();
+                if(correct == true)
+                {
+                    Main.Visibility = Visibility.Visible;
+                    Authorization.Visibility = Visibility.Collapsed;
+                }
+                else // Если введено не верно
+                {
+                    MessageBox.Show("Текст введён не верно! Попробуйте ещё раз!");
+                    CAPTCHA captchaReplay = new CAPTCHA();
+                    captchaReplay.ShowDialog();
+                    if (correct == true)
+                    {
+                        Main.Visibility = Visibility.Visible;
+                        Authorization.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы не подтвердили, что вы не робот. Вход не удачен");
+                        tbLogin.Text = "";
+                        pbPassword.Password = "";
+                    }
+                }
             }
             else // Если введено неверное число или не успели
             {
