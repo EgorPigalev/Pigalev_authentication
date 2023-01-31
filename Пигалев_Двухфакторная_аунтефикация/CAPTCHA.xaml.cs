@@ -64,12 +64,12 @@ namespace Пигалев_Двухфакторная_аунтефикация
                 }
             }
             // Переменные для того, чтобы символы шли по порядку
-            int widthBegin = 0;
-            int widthEnd = 0;
+            int widthBegin = 0; // Начало отрезка
+            int widthEnd = 0; // Конец отрезка
             int h = (int)CvField.Width / text.Length; // Шаг разбиения
             for (int i = 0; i < text.Length; i++) // Заполнение текста, где у каждого символа разное оформление
             {
-                if (i == 0)
+                if (i == 0) // Если первое разбиение
                 {
                     widthEnd += h;
                 }
@@ -80,18 +80,18 @@ namespace Пигалев_Двухфакторная_аунтефикация
                 }
                 int height = rand.Next((int)CvField.Height);
                 int width = rand.Next(widthBegin, widthEnd);
-                if (height > 170)
+                if (height > 170) // Чтобы не выходило за пределы поля (30 - это самое большая высота символа)
                 {
                     height -= 30;
                 }
-                if(width > 510)
+                if(width > 590) // Чтобы не выходило за пределы поля (10 - это самое большая длина символа)
                 {
                     widthEnd -= 10;
                 }
-                int j = rand.Next(3);
+                int j = rand.Next(3); // Выбор стиля символа (0 - жирный шрифт; 1 - курсивный; 2 - жирный и курсивный)
                 if (j == 0)
                 {
-                    int fontSize = rand.Next(16, 33); // Размер текста
+                    int fontSize = rand.Next(16, 33);
                     TextBlock txt = new TextBlock()
                     {
                         Text = text[i].ToString(),
@@ -103,7 +103,7 @@ namespace Пигалев_Двухфакторная_аунтефикация
                 }
                 else if (j == 1)
                 {
-                    int fontSize = rand.Next(16, 33); // Размер текста
+                    int fontSize = rand.Next(16, 33);
                     TextBlock txt = new TextBlock()
                     {
                         Text = text[i].ToString(),
@@ -115,7 +115,7 @@ namespace Пигалев_Двухфакторная_аунтефикация
                 }
                 else if (j == 2)
                 {
-                    int fontSize = rand.Next(16, 33); // Размер текста
+                    int fontSize = rand.Next(16, 33);
                     TextBlock txt = new TextBlock()
                     {
                         Text = text[i].ToString(),

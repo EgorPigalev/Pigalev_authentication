@@ -13,13 +13,13 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Подтвердите, что вы не робот введя текст с картинки" FontSize="24"/>
+            <TextBlock Text="Подтвердите, что вы не робот введя текст с картинки в последовательности слева на право" FontSize="24" TextWrapping="Wrap" TextAlignment="Center"/>
         </StackPanel>
         <Canvas x:Name="CvField" Width="600" Height="200" Grid.Row="1">
                 
         </Canvas>
         <StackPanel Grid.Row="2" Orientation="Vertical">
-            <TextBox x:Name="tbInputField" FontSize="24" Margin="200, 10, 200, 10"/>
+            <TextBox x:Name="tbInputField" FontSize="24" Margin="200, 10, 200, 10" MaxLength="50"/>
             <Button x:Name="BtnGo" Content="Отправить" Template="{StaticResource CTButonMainPage}" Style="{StaticResource ResourceKey=BtnMain}" Click="BtnGo_Click"/>
         </StackPanel>
     </Grid>
