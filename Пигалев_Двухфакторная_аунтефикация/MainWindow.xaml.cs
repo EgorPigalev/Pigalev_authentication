@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace Пигалев_Двухфакторная_аунтефикация
         public static int countNumber; // Колличество введённых чисел
         public static bool correct; // Индефикатор правильности введённого кода (true - правильный код, false - не правильный)
         int countTime; // Время для повторного получения кода
+        int kolError = 0; // Количество неверных ответов
         DispatcherTimer disTimer = new DispatcherTimer(); 
 
         public MainWindow()
@@ -56,6 +58,7 @@ namespace Пигалев_Двухфакторная_аунтефикация
 
         private void BtnNextAutorization_Click(object sender, RoutedEventArgs e) // При перехода на авторизацию возвращаем все поля
         {
+            kolError = 0;
             tbLogin.Text = "";
             pbPassword.Password = "";
             Main.Visibility = Visibility.Collapsed;
@@ -91,46 +94,60 @@ namespace Пигалев_Двухфакторная_аунтефикация
             twoAuthentication.ShowDialog();
             if (correct == true) // Если пароль правильный, то выводим форму после авторизации
             {
-                correct = false;
-                CAPTCHA captcha = new CAPTCHA();
-                captcha.ShowDialog();
-                if(correct == true)
+                Main.Visibility = Visibility.Visible;
+                Authorization.Visibility = Visibility.Collapsed;
+                
+            }
+            else // Если введено неверное число или не успели
+            {
+                if (kolError >= 1) // Если второй раз код введён не верно, то выводим CAPTCHA
                 {
-                    Main.Visibility = Visibility.Visible;
-                    Authorization.Visibility = Visibility.Collapsed;
-                }
-                else // Если введено не верно
-                {
-                    MessageBox.Show("Текст введён не верно! Попробуйте ещё раз!");
-                    CAPTCHA captchaReplay = new CAPTCHA();
-                    captchaReplay.ShowDialog();
+                    CAPTCHA captcha = new CAPTCHA();
+                    captcha.ShowDialog();
                     if (correct == true)
                     {
                         Main.Visibility = Visibility.Visible;
                         Authorization.Visibility = Visibility.Collapsed;
                     }
-                    else
+                    else // Если введено не верно
                     {
-                        MessageBox.Show("Вы не подтвердили, что вы не робот. Вход не удачен");
-                        tbLogin.Text = "";
-                        pbPassword.Password = "";
+                        MessageBox.Show("Текст введён не верно! Попробуйте ещё раз!");
+                        CAPTCHA captchaReplay = new CAPTCHA();
+                        captchaReplay.ShowDialog();
+                        if (correct == true)
+                        {
+                            Main.Visibility = Visibility.Visible;
+                            Authorization.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Вы не подтвердили, что вы не робот. Вход не удачен");
+                            tbLogin.Text = "";
+                            pbPassword.Password = "";
+                            tbLogin.IsEnabled = true;
+                            pbPassword.IsEnabled = true;
+                            BtnAutorization.Visibility = Visibility.Visible;
+                            BtnGetCode.Visibility = Visibility.Collapsed;
+                            kolError = 0;
+                        }
                     }
                 }
-            }
-            else // Если введено неверное число или не успели
-            {
-                if (countNumber == 5) // Если введено 5 значное число
+                else // Если первый раз код введён не верно
                 {
-                    MessageBox.Show("Введенный код не является верным! ");
+                    if (countNumber == 5) // Если введено 5 значное число
+                    {
+                        MessageBox.Show("Введенный код не является верным! ");
+                    }
+                    BtnAutorization.Visibility = Visibility.Collapsed;
+                    BtnGetCode.Visibility = Visibility.Collapsed;
+                    tbLogin.IsEnabled = false;
+                    pbPassword.IsEnabled = false;
+                    countTime = 60;
+                    tbNewCode.Text = "Получить новый код можно будет через " + countTime + " секунд";
+                    tbNewCode.Visibility = Visibility.Visible;
+                    disTimer.Start();
+                    kolError++;
                 }
-                BtnAutorization.Visibility = Visibility.Collapsed;
-                BtnGetCode.Visibility= Visibility.Collapsed;
-                tbLogin.IsEnabled = false;
-                pbPassword.IsEnabled = false;
-                countTime = 60;
-                tbNewCode.Text = "Получить новый код можно будет через " + countTime + " секунд";
-                tbNewCode.Visibility = Visibility.Visible;
-                disTimer.Start();
             }
         }
 
